@@ -74,7 +74,7 @@ runs:
 
     - name: Delete previous release (if any)
       uses: dev-drprasad/delete-tag-and-release@v1.0
-      if: ${{ inputs.delete_previous == true }}
+      if: ${{ inputs.delete_previous == 'true' }}
       with:
         github_token: ${{ inputs.github_token }}
         tag_name: ${{ steps.gather_info.outputs.tag_name }}
