@@ -62,9 +62,11 @@ runs:
         import os
         branch = os.environ['GITHUB_REF_NAME']
         prerelease = branch.startswith('future/')
-        print(f'::set-output prerelease={ str(prerelease).lower() }')
+        with open(os.environ['GITHUB_OUTPUT'], "a") as fp:
+          print(f'prerelease={str(prerelease).lower()}', file=fp)
 
-    - run: echo ${{ steps.gather_info.outputs.prerelease }}
+    - shell: bash
+      run: echo ${{ steps.gather_info.outputs.prerelease }}
 
     - name: Create release
       id: create_release
