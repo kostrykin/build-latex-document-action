@@ -20,7 +20,7 @@ jobs:
       - name: Initialize
         uses: actions/checkout@v4
 
-      - uses: actions/build-latex-document
+      - uses: actions/build-latex-document@master
         with:
           working_directory: example
           document_filename: example.pdf
