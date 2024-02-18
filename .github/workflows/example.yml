@@ -1,0 +1,38 @@
+name: Build example document
+
+on:
+  push:
+    paths:
+      - 'example/**'
+      - '.github/workflows/example.yml'
+  pull_request:
+    branches:
+      - 'master'
+      - 'future-*'
+
+jobs:
+
+  fetch_sources:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || github.ref_name == 'master' || startsWith(github.ref_name, 'future-')
+    steps:
+
+      - name: Initialize
+        uses: actions/checkout@v4
+
+      - uses: actions/build-latex-document
+        with:
+          working_directory: example
+          document_filename: example.pdf
+          sources:
+            - part1.tex
+            - part2.tex
+            - example.tex
+          publish: false
+
+      - name: Clean up (delete drafted release)
+        uses: dev-drprasad/delete-tag-and-release@v1.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: ${{ github.ref_name }}
+          delete_release: true
