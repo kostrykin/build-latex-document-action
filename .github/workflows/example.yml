@@ -24,10 +24,10 @@ jobs:
         with:
           working_directory: example
           document_filename: example.pdf
-          sources:
-            - part1.tex
-            - part2.tex
-            - example.tex
+          sources: |
+            part1.tex
+            part2.tex
+            example.tex
           publish: false
 
       - name: Clean up (delete drafted release)
