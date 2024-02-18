@@ -12,7 +12,7 @@ on:
 
 jobs:
 
-  fetch_sources:
+  test_example:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request' || github.ref_name == 'master' || startsWith(github.ref_name, 'future-')
     steps:

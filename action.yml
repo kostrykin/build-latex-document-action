@@ -12,6 +12,11 @@ inputs:
   document_filename:
     description: 'The name of the built document file (usually ends with)'
 
+  github_token:
+    description: A github token that has write access to the repo where the tag is.
+    required: true
+    default: ${{ github.token }} #${{ secrets.GITHUB_TOKEN }}
+
   publish:
     description: 'Publish the release or only draft (false)'
     default: true
@@ -38,7 +43,7 @@ runs:
       uses: actions/github-script@v3
       if: github.event_name == 'pull_request'
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{ inputs.github_token }}
         script: |
           github.issues.createComment({
             issue_number: context.issue.number,
@@ -65,7 +70,7 @@ runs:
       id: create_release
       uses: actions/create-release@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ inputs.github_token }}
       with:
         tag_name: ${{ github.ref_name }}
         release_name: ${{ github.ref_name }}
@@ -75,7 +80,7 @@ runs:
     - name: Upload release asset
       uses: actions/upload-release-asset@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ inputs.github_token }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ${{ inputs.document_filename }}
