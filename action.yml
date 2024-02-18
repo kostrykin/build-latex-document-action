@@ -61,7 +61,7 @@ runs:
       run: |
         import os
         branch = os.environ['GITHUB_REF_NAME']
-        if branch.startswith('future/')
+        if branch.startswith('future/'):
             print(f'::set-output prerelease=true')
         else:
             print(f'::set-output prerelease=false')

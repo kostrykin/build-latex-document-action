@@ -29,10 +29,3 @@ jobs:
             part2.tex
             example.tex
           publish: false
-
-      - name: Clean up (delete drafted release)
-        uses: dev-drprasad/delete-tag-and-release@v1.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          tag_name: ${{ github.ref_name }}
-          delete_release: true
