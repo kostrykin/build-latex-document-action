@@ -60,13 +60,13 @@ runs:
         GITHUB_REF_NAME: ${{ github.ref-name }}
       run: |
         import os
+        import subprocess
         branch = os.environ['GITHUB_REF_NAME']
         prerelease = branch.startswith('future/')
+        sha = subprocess.run(['git', 'rev-parse', 'HEAD'], stdout=subprocess.PIPE).stdout.decode('utf-8').strip()
         with open(os.environ['GITHUB_OUTPUT'], "a") as fp:
           print(f'prerelease={str(prerelease).lower()}', file=fp)
-
-    - shell: bash
-      run: echo ${{ steps.gather_info.outputs.prerelease }}
+          print(f'tag_name={branch}/{sha[:7]}', file=fp)
 
     - name: Create release
       id: create_release
@@ -74,8 +74,8 @@ runs:
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
       with:
-        tag_name: ${{ github.ref_name }}/v1
-        release_name: ${{ github.ref_name }}/v1
+        tag_name: ${{ steps.gather_info.outputs.tag_name }}
+        release_name: ${{ github.ref_name }}
         draft: ${{ inputs.publish != true }}
         prerelease: ${{ steps.gather_info.outputs.prerelease }}
 
@@ -85,6 +85,6 @@ runs:
         GITHUB_TOKEN: ${{ inputs.github_token }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ${{ inputs.document_filename }}
+        asset_path: ${{ inputs.working_directory }}/${{ inputs.document_filename }}
         asset_name: ${{ inputs.document_filename }}
         asset_content_type: pdf
