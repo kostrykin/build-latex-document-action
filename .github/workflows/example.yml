@@ -5,7 +5,7 @@ on:
     paths:
       - 'example/**'
       - '.github/workflows/example.yml'
-      - '.github/workflows/action.yml'
+      - 'action.yml'
   pull_request:
     branches:
       - 'master'
