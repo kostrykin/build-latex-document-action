@@ -20,7 +20,7 @@ jobs:
       - name: Initialize
         uses: actions/checkout@v4
 
-      - uses: kostrykin/build-latex-document@master
+      - uses: kostrykin/build-latex-document-action@master
         with:
           working_directory: example
           document_filename: example.pdf
