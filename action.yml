@@ -88,7 +88,7 @@ runs:
       with:
         tag_name: ${{ steps.gather_info.outputs.tag_name }}
         release_name: ${{ github.ref_name }}
-        draft: ${{ inputs.publish != true }}
+        draft: ${{ inputs.publish != 'true' }}
         prerelease: ${{ steps.gather_info.outputs.prerelease }}
 
     - name: Upload release asset
