@@ -22,7 +22,7 @@ inputs:
     default: true
 
   delete_previous:
-    description: 'Delete previous releases from the branch (true)'
+    description: 'Delete previous releases from same branch (true)'
     default: true
 
 runs:
