@@ -72,9 +72,9 @@ runs:
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
       with:
-        tag_name: ${{ github.ref_name }}
-        release_name: ${{ github.ref_name }}
-        draft: ${{ !inputs.publish }}
+        tag_name: ${{ github.ref_name }}/v1
+        release_name: ${{ github.ref_name }}/v1
+        draft: ${{ inputs.publish != true }}
         prerelease: ${{ steps.gather_info.outputs.prerelease }}
 
     - name: Upload release asset
