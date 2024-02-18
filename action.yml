@@ -18,7 +18,11 @@ inputs:
     default: ${{ github.token }}
 
   publish:
-    description: 'Publish the release or only draft (false)'
+    description: 'Publish the release (true) or only draft (false)'
+    default: true
+
+  delete_previous:
+    description: 'Delete previous releases from the branch (true)'
     default: true
 
 runs:
@@ -67,6 +71,14 @@ runs:
         with open(os.environ['GITHUB_OUTPUT'], "a") as fp:
           print(f'prerelease={str(prerelease).lower()}', file=fp)
           print(f'tag_name={branch}/{sha[:7]}', file=fp)
+
+    - name: Delete previous release (if any)
+      uses: dev-drprasad/delete-tag-and-release@v1.0
+      if: ${{ inputs.delete_previous == true }}
+      with:
+        github_token: ${{ inputs.github_token }}
+        tag_name: ${{ steps.gather_info.outputs.tag_name }}
+        delete_release: true
 
     - name: Create release
       id: create_release
