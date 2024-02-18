@@ -8,10 +8,11 @@ inputs:
 
   working_directory:
     description: 'The working directory for building tex files'
+    default: '.'
 
   latexmk_use_xelatex:
     description: Instruct latexmk to use XeLaTeX
-    default: "false"
+    default: false
 
   document_filename:
     description: 'The name of the built document file (usually ends with)'
