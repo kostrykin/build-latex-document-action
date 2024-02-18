@@ -77,6 +77,7 @@ runs:
           print(f'tag_name={tag_prefix}{branch}{tag_suffix}', file=fp)
 
     - name: Delete previous release (if any)
+      if: github.event_name == 'push'
       uses: dev-drprasad/delete-tag-and-release@v1.0
       with:
         github_token: ${{ inputs.github_token }}
@@ -84,6 +85,7 @@ runs:
         delete_release: true
 
     - name: Create release
+      if: github.event_name == 'push'
       id: create_release
       uses: actions/create-release@v1
       env:
@@ -95,6 +97,7 @@ runs:
         prerelease: ${{ steps.gather_info.outputs.prerelease }}
 
     - name: Upload release asset
+      if: github.event_name == 'push'
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
