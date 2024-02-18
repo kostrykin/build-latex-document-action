@@ -4,3 +4,4 @@ Documents built from `future/**` branches are only drafted for release.
 
 For examples see:
 - <https://github.com/BMCV/mobi-fs3-python-assignments/blob/current/.github/workflows/build_assignments.yml>
+- <https://github.com/BMCV/mobi-fs5-python-assignments/blob/current/.github/workflows/build_assignments.yml>
