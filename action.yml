@@ -9,6 +9,10 @@ inputs:
   working_directory:
     description: 'The working directory for building tex files'
 
+  latexmk_use_xelatex:
+    description: Instruct latexmk to use XeLaTeX
+    default: "false"
+
   document_filename:
     description: 'The name of the built document file (usually ends with)'
 
@@ -37,6 +41,7 @@ runs:
       with:
         root_file: ${{ inputs.sources }}
         working_directory: ${{ inputs.working_directory }}
+        latexmk_use_xelatex: ${{ inputs.latexmk_use_xelatex }}
 
     - name: Upload LaTeX document
       uses: actions/upload-artifact@v4
