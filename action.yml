@@ -4,7 +4,7 @@ inputs:
 
   sources:
     description: 'List of tex files to be built'
-    required: true
+    required: 'true'
 
   working_directory:
     description: 'The working directory for building tex files'
@@ -12,19 +12,19 @@ inputs:
 
   latexmk_use_xelatex:
     description: Instruct latexmk to use XeLaTeX
-    default: false
+    default: 'false'
 
   document_filename:
     description: 'The name of the built document file (usually ends with)'
 
   github_token:
     description: A github token that has write access to the repo where the tag is.
-    required: true
+    required: 'true'
     default: ${{ github.token }}
 
   publish:
     description: 'Publish the release (true) or only draft (false)'
-    default: true
+    default: 'true'
 
   tag_prefix:
     description: 'Prefix used for tags (prepended to branch name)'
