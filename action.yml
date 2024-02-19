@@ -78,6 +78,14 @@ runs:
           print(f'prerelease={str(prerelease).lower()}', file=fp)
           print(f'tag_name={tag_prefix}{branch}{tag_suffix}', file=fp)
 
+    - name: Delete previous release and tag (if any)
+      if: github.event_name == 'push'
+      uses: dev-drprasad/delete-tag-and-release@v1.0
+      with:
+        github_token: ${{ inputs.github_token }}
+        tag_name: ${{ steps.gather_info.outputs.tag_name }}
+        delete_release: true
+
     - name: Create release
       if: github.event_name == 'push'
       id: create_release
