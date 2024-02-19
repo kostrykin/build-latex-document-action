@@ -82,33 +82,15 @@ runs:
           print(f'prerelease={str(prerelease).lower()}', file=fp)
           print(f'tag_name={tag_prefix}{branch}{tag_suffix}', file=fp)
 
-    - name: Delete previous release (if any)
-      if: github.event_name == 'push'
-      uses: dev-drprasad/delete-tag-and-release@v1.0
-      with:
-        github_token: ${{ inputs.github_token }}
-        tag_name: ${{ steps.gather_info.outputs.tag_name }}
-        delete_release: true
-
     - name: Create release
       if: github.event_name == 'push'
       id: create_release
-      uses: actions/create-release@v1
+      uses: ncipollo/release-action@v1.14.0
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
       with:
-        tag_name: ${{ steps.gather_info.outputs.tag_name }}
-        release_name: ${{ steps.gather_info.outputs.tag_name }}
+        allowUpdates: true
+        artifacts: ${{ inputs.working_directory }}/${{ inputs.document_filename }}
+        name: ${{ steps.gather_info.outputs.tag_name }}
         draft: ${{ inputs.draft }}
         prerelease: ${{ steps.gather_info.outputs.prerelease }}
-
-    - name: Upload release asset
-      if: github.event_name == 'push'
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ inputs.github_token }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ${{ inputs.working_directory }}/${{ inputs.document_filename }}
-        asset_name: ${{ inputs.document_filename }}
-        asset_content_type: pdf
