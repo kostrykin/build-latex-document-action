@@ -30,4 +30,4 @@ jobs:
             part1.tex
             part2.tex
             example.tex
-          publish: false
+          #publish: false
