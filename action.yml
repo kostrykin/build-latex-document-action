@@ -91,6 +91,7 @@ runs:
       with:
         allowUpdates: true
         artifacts: ${{ inputs.working_directory }}/${{ inputs.document_filename }}
-        name: ${{ steps.gather_info.outputs.tag_name }}
+        tag: ${{ steps.gather_info.outputs.tag_name }}
+        commit: ${{ github.sha }}
         draft: ${{ inputs.draft }}
         prerelease: ${{ steps.gather_info.outputs.prerelease }}
