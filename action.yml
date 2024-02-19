@@ -90,3 +90,5 @@ runs:
         tag: ${{ steps.gather_info.outputs.tag_name }}
         commit: ${{ github.sha }}
         prerelease: ${{ steps.gather_info.outputs.prerelease }}
+        omitBody: true
+        omitBodyDuringUpdate: true
