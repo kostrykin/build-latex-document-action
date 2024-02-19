@@ -22,10 +22,6 @@ inputs:
     required: 'true'
     default: ${{ github.token }}
 
-  draft:
-    description: 'Publish the release (false) or only draft (true)'
-    default: 'false'
-
   tag_prefix:
     description: 'Prefix used for tags (prepended to branch name)'
 
@@ -93,5 +89,4 @@ runs:
         artifacts: ${{ inputs.working_directory }}/${{ inputs.document_filename }}
         tag: ${{ steps.gather_info.outputs.tag_name }}
         commit: ${{ github.sha }}
-        draft: ${{ inputs.draft }}
         prerelease: ${{ steps.gather_info.outputs.prerelease }}
