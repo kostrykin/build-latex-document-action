@@ -48,7 +48,7 @@ runs:
         path: ${{ inputs.working_directory }}/${{ inputs.document_filename }}
 
     - name: Paste document download link into pull request
-      uses: actions/github-script@v3
+      uses: actions/github-script@v7
       if: github.event_name == 'pull_request'
       with:
         github-token: ${{ inputs.github_token }}
