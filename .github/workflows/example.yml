@@ -29,7 +29,7 @@ jobs:
       - name: Initialize
         uses: actions/checkout@v4
 
-      - uses: .
+      - uses: kostrykin/build-latex-document-action@${{ github.ref_name }}
         with:
           working_directory: example
           document_filename: example.pdf
