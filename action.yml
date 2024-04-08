@@ -80,7 +80,7 @@ runs:
 
     - name: Delete previous release and tag (if any)
       if: github.event_name == 'push'
-      uses: dev-drprasad/delete-tag-and-release@v1.0
+      uses: dev-drprasad/delete-tag-and-release@v1.1
       with:
         github_token: ${{ inputs.github_token }}
         tag_name: ${{ steps.gather_info.outputs.tag_name }}
