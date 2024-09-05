@@ -7,6 +7,7 @@ on:
       - 'example/**'
       - '.github/workflows/example.yml'
       - 'action.yml'
+      - 'build_index.html'
       
   pull_request:
     branches:
@@ -14,10 +15,6 @@ on:
       - 'future/**'
 
 jobs:
-  debug:
-    runs-on: ubuntu-latest
-    steps:
-    - run: echo "${{ github.event.head_commit.message }}"
 
   test_example:
     runs-on: ubuntu-latest
