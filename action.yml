@@ -15,7 +15,7 @@ inputs:
     default: 'false'
 
   document_filename:
-    description: 'The name of the built document file (usually ends with)'
+    description: 'The name of the built document file (usually ends with ".pdf")'
 
   github_token:
     description: A github token that has write access to the repo where the tag is.
@@ -70,12 +70,12 @@ runs:
       if: github.event_name == 'push'
       shell: bash
       run: |
-        mkdir -p $(dirname "target/${{ github.ref_name }}.pdf")
-        cp "${{ inputs.working_directory }}/${{ inputs.document_filename }}" "target/${{ github.ref_name }}.pdf"
+        mkdir -p "target/${{ github.ref_name }}"
+        cp "${{ inputs.working_directory }}/${{ inputs.document_filename }}" "target/${{ github.ref_name }}/${{ inputs.document_filename }}"
 
     - name: Commit and push the target branch
       if: github.event_name == 'push'
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
-        commit_message: Update ${{ github.ref_name }}.pdf
+        commit_message: Update ${{ github.ref_name }}/${{ inputs.document_filename }}
         repository: target
