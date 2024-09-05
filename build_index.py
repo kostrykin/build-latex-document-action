@@ -4,7 +4,7 @@ import glob
 import os
 
 
-names = list()
+filepaths = list()
 
 for filepath in glob.glob('**/*', recursive=True):
     if os.path.isfile(filepath):
