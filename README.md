@@ -2,7 +2,7 @@
 
 Builds and publishes the PDF of a LaTeX document to a target branch.
 
-The PDF is published to a target branch of the repository, which has the same name as the branch (or the tag) which triggered the workflow. If that PDF already exists on the target branch, it will be updated.
+The PDF is published to a target branch of the repository, which has the same name as the branch (or the tag) which triggered the workflow. If that PDF already exists on the target branch, it will be updated. The target branch can be published with GitHub Pages: https://kostrykin.github.io/build-latex-document-action
 
 When triggered from pull requests, the built PDF is provided as an artifact and posted into the pull request which triggered the worklow.
 
