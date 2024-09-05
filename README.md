@@ -10,3 +10,13 @@ For examples see:
 - <https://github.com/BMCV/mobi-fs3-python-assignments/blob/current/.github/workflows/build_assignments.yml>
 - <https://github.com/BMCV/mobi-fs5-python-assignments/blob/current/.github/workflows/build_assignments.yml>
 - <https://github.com/BMCV/mobi-fs3-python-lecture/blob/current/.github/workflows/build_slides.yml>
+
+---
+
+**Example:** Create a target branch as an orphan branch:
+```bash
+git checkout --orphan pdf
+git reset --hard
+git commit --allow-empty -m "Create target branch"
+git push origin pdf
+```
