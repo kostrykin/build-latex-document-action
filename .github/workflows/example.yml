@@ -3,23 +3,18 @@ name: Build example document
 on:
 
   push:
-  
     paths:
       - 'example/**'
       - '.github/workflows/example.yml'
       - 'action.yml'
       
   pull_request:
-  
     branches:
       - 'master'
       - 'future/**'
 
-
 jobs:
-
   test_example:
-  
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request' || github.ref_name == 'master'
     permissions: write-all
@@ -29,7 +24,7 @@ jobs:
       - name: Initialize
         uses: actions/checkout@v4
 
-      - uses: kostrykin/build-latex-document-action@master
+      - uses: ./
         with:
           working_directory: example
           document_filename: example.pdf

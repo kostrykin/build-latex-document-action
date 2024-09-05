@@ -22,11 +22,10 @@ inputs:
     required: 'true'
     default: ${{ github.token }}
 
-  tag_prefix:
-    description: 'Prefix used for tags (prepended to branch name)'
-
-  tag_suffix:
-    description: 'Suffix used for tags (appended to branch name)'
+  target_branch:
+    description: The branch where to push the PDF to.
+    required: 'true'
+    default: pdf
 
 runs:
 
@@ -57,46 +56,23 @@ runs:
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: 'Document built successfully: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.document-upload-step.outputs.artifact-id }}'
+            body: 'Document for ${{ github.event.pull_request.head.sha }} built successfully: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.document-upload-step.outputs.artifact-id }}'
           })
 
-    - name: Gather information for release
+    - name: Checkout target branch
       if: github.event_name == 'push'
-      id: gather_info
-      shell: python
-      env:
-        GITHUB_REF_NAME: ${{ github.ref-name }}
-        TAG_PREFIX: ${{ inputs.tag_prefix }}
-        TAG_SUFFIX: ${{ inputs.tag_suffix }}
-      run: |
-        import os
-        branch = os.environ['GITHUB_REF_NAME']
-        tag_prefix = os.environ['TAG_PREFIX']
-        tag_suffix = os.environ['TAG_SUFFIX']
-        prerelease = branch.startswith('future/')
-        with open(os.environ['GITHUB_OUTPUT'], "a") as fp:
-          print(f'prerelease={str(prerelease).lower()}', file=fp)
-          print(f'tag_name={tag_prefix}{branch}{tag_suffix}', file=fp)
-
-    - name: Delete previous release and tag (if any)
-      if: github.event_name == 'push'
-      uses: dev-drprasad/delete-tag-and-release@v1.0
+      uses: actions/checkout@v4
       with:
-        github_token: ${{ inputs.github_token }}
-        tag_name: ${{ steps.gather_info.outputs.tag_name }}
-        delete_release: true
+        ref: ${{ inputs.target_branch }}
+        path: target
 
-    - name: Create release
+    - name: Copy PDF
       if: github.event_name == 'push'
-      id: create_release
-      uses: ncipollo/release-action@v1.14.0
-      env:
-        GITHUB_TOKEN: ${{ inputs.github_token }}
+      shell: bash
+      run: cp "${{ inputs.working_directory }}/${{ inputs.document_filename }}" "target/${{ github.ref-name }}.pdf"
+
+    - name: Commit and push the target branch
+      if: github.event_name == 'push'
+      uses: stefanzweifel/git-auto-commit-action@v5
       with:
-        allowUpdates: true
-        artifacts: ${{ inputs.working_directory }}/${{ inputs.document_filename }}
-        tag: ${{ steps.gather_info.outputs.tag_name }}
-        commit: ${{ github.sha }}
-        prerelease: ${{ steps.gather_info.outputs.prerelease }}
-        omitBody: true
-        omitBodyDuringUpdate: true
+        commit_message: Update ${{ github.ref-name }}.pdf
