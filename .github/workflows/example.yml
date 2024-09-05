@@ -14,6 +14,12 @@ on:
       - 'future/**'
 
 jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "${{ github.event.head_commit.message }}"
+    - run: echo "${{ contains(github.event.head_commit.message, '[deploy]' }}"
+
   test_example:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request' || github.ref_name == 'master' || contains(github.event.head_commit.message, '[deploy]' )
