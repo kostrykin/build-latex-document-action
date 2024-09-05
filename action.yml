@@ -69,7 +69,9 @@ runs:
     - name: Copy PDF
       if: github.event_name == 'push'
       shell: bash
-      run: cp "${{ inputs.working_directory }}/${{ inputs.document_filename }}" "target/${{ github.ref_name }}.pdf"
+      run: |
+        mkdir -p $(dirname "target/${{ github.ref_name }}.pdf")
+        cp "${{ inputs.working_directory }}/${{ inputs.document_filename }}" "target/${{ github.ref_name }}.pdf"
 
     - name: Commit and push the target branch
       if: github.event_name == 'push'
