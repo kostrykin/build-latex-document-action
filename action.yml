@@ -72,5 +72,6 @@ runs:
       run: cp "${{ inputs.working_directory }}/${{ inputs.document_filename }}" "target/${{ github.ref-name }}.pdf"
 
     - name: Commit and push the target branch
+      if: github.event_name == 'push'
       uses: stefanzweifel/git-auto-commit-action@v5
       commit_message: Update ${{ github.ref-name }}.pdf
