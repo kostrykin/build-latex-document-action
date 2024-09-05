@@ -1,4 +1,4 @@
-name: Build example document 
+name: Build example document
 
 on:
 
@@ -16,7 +16,7 @@ on:
 jobs:
   test_example:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' || github.ref_name == 'master'
+    if: github.event_name == 'pull_request'
     permissions: write-all
     
     steps:
