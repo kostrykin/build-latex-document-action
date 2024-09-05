@@ -7,14 +7,14 @@ import os
 filepaths = list()
 
 for filepath in glob.glob('**/*', recursive=True):
-    if os.path.isfile(filepath):
+    if os.path.isfile(filepath) and filepath != 'index.html':
         filepaths.append(filepath)
 
 html = """
 <html>
 <body>
 <ul>
-""" + '\n'.join(f'<li><a href="{filepath}">{filepath}</a></li>' for filepath in sorted(filepath)) + """
+""" + '\n'.join(f'<li><a href="{filepath}">{filepath}</a></li>' for filepath in sorted(filepaths)) + """
 </ul>
 </body>
 """
