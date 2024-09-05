@@ -69,11 +69,11 @@ runs:
     - name: Copy PDF
       if: github.event_name == 'push'
       shell: bash
-      run: cp "${{ inputs.working_directory }}/${{ inputs.document_filename }}" "target/${{ github.ref-name }}.pdf"
+      run: cp "${{ inputs.working_directory }}/${{ inputs.document_filename }}" "target/${{ github.ref_name }}.pdf"
 
     - name: Commit and push the target branch
       if: github.event_name == 'push'
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
-        commit_message: Update ${{ github.ref-name }}.pdf
+        commit_message: Update ${{ github.ref_name }}.pdf
         repository: target
