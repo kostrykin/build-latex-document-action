@@ -74,7 +74,10 @@ runs:
         cp "${{ inputs.working_directory }}/${{ inputs.document_filename }}" "target/${{ github.ref_name }}/${{ inputs.document_filename }}"
 
     - name: Build target branch index
-      run: python "${{ github.action_path }}/build_index.py"
+      if: github.event_name == 'push'
+      run: |
+        cd target
+        python "${{ github.action_path }}/build_index.py"
 
     - name: Commit and push the target branch
       if: github.event_name == 'push'
