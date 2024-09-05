@@ -1,8 +1,8 @@
 # *[build-latex-document-action](https://github.com/kostrykin/build-latex-document-action)*
 
-Builds and publishes the PDF of a LaTeX document.
+Builds and publishes the PDF of a LaTeX document to a target branch.
 
-The PDF is published as the attachment of a release, which has the same name as the branch (or the tag) which triggered the workflow. If that release already exists, it will be updated. Documents built from `future/**` branches or tags are marked as *pre-release*.
+The PDF is published to a target branch of the repository, which has the same name as the branch (or the tag) which triggered the workflow. If that PDF already exists on the target branch, it will be updated.
 
 When triggered from pull requests, the built PDF is provided as an artifact and posted into the pull request which triggered the worklow.
 
