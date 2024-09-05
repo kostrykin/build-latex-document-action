@@ -75,6 +75,7 @@ runs:
 
     - name: Build target branch index
       if: github.event_name == 'push'
+      shell: bash
       run: |
         cd target
         python "${{ github.action_path }}/build_index.py"
