@@ -74,4 +74,5 @@ runs:
     - name: Commit and push the target branch
       if: github.event_name == 'push'
       uses: stefanzweifel/git-auto-commit-action@v5
-      commit_message: Update ${{ github.ref-name }}.pdf
+      with:
+        commit_message: Update ${{ github.ref-name }}.pdf
