@@ -7,6 +7,8 @@ import os
 filepaths = list()
 
 for filepath in glob.glob('**/*', recursive=True):
+
+    # Only accept files from sub-directories (only static files are top-level)
     if os.path.isfile(filepath) and '/' in filepath:
         filepaths.append(filepath)
 
