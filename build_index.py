@@ -7,7 +7,7 @@ import os
 filepaths = list()
 
 for filepath in glob.glob('**/*', recursive=True):
-    if os.path.isfile(filepath) and filepath != 'index.html':
+    if os.path.isfile(filepath) and '/' in filepath:
         filepaths.append(filepath)
 
 html = """
