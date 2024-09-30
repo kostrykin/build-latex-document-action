@@ -17,11 +17,6 @@ inputs:
   document_filename:
     description: 'The name of the built document file (usually ends with ".pdf")'
 
-  github_token:
-    description: A github token that has write access to the repo where the tag is.
-    required: 'true'
-    default: ${{ github.token }}
-
   target_branch:
     description: The branch where to push the PDF to.
     required: 'true'
@@ -51,8 +46,8 @@ runs:
       shell: bash
       run: |
         echo "{
-          issue_number: $ISSUE_NUMBER,
-          body: 'Document for $HEAD_SHA built successfully: $URL'
+          "issue_number": $ISSUE_NUMBER,
+          "body": "Document for $HEAD_SHA built successfully: $URL"
         }" >> comment.json
       env:
         ISSUE_NUMBER: ${{ github.event.number }}
