@@ -51,9 +51,14 @@ runs:
       shell: bash
       run: |
         echo "{
-          issue_number: ${{ context.issue.number }},
-          body: 'Document for ${{ github.event.pull_request.head.sha }} built successfully: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.document-upload-step.outputs.artifact-id }}'
+          issue_number: $ISSUE_NUMBER,
+          body: 'Document for $HEAD_SHA built successfully: $URL'
         }" >> comment.json
+      with:
+        env:
+          ISSUE_NUMBER: ${{ context.issue.number }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.document-upload-step.outputs.artifact-id }}
 
     - name: Upload the comment as an artifact
       uses: actions/upload-artifact@v4
