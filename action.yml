@@ -55,7 +55,7 @@ runs:
           body: 'Document for $HEAD_SHA built successfully: $URL'
         }" >> comment.json
       env:
-        ISSUE_NUMBER: ${{ context.issue.number }}
+        ISSUE_NUMBER: ${{ github.event.issue.number }}
         HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.document-upload-step.outputs.artifact-id }}
 
