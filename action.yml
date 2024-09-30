@@ -48,6 +48,7 @@ runs:
 
     - name: Prepare a comment for the pull request
       if: github.event_name == 'pull_request'
+      shell: bash
       run: |
         echo "{
           issue_number: ${{ context.issue.number }},
