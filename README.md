@@ -62,7 +62,6 @@ on:
     types: [completed]
 
 jobs:
-
   post_pr_comment:
     runs-on: ubuntu-latest
     permissions:
