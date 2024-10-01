@@ -7,7 +7,7 @@ on:
       - 'example/**'
       - '.github/workflows/example.yml'
       - 'action.yml'
-      - 'build_index.html'
+      - 'build_index.py'
       
   pull_request:
     branches:
