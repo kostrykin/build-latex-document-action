@@ -28,7 +28,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' || github.ref_name == 'current' || startsWith(github.ref_name, 'future/')
+    if: ${{
+        github.event_name == 'pull_request' ||
+        github.ref_name == 'current' ||
+        startsWith(github.ref_name, 'future/')
+      }}
     permissions:
       contents: write
     steps:
@@ -63,7 +67,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
-    if: github.event.workflow_run.conclusion == 'success'
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
 
       - uses: kostrykin/build-latex-document-action@v2.2.0
