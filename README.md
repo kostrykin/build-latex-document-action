@@ -6,13 +6,6 @@ The PDF is published to a target branch of the repository, which has the same na
 
 When triggered from pull requests, the built PDF is provided as an artifact and posted into the pull request that triggered the worklow.
 
-For examples see:
-- <https://github.com/BMCV/mobi-fs3-python-assignments/blob/current/.github/workflows/build_assignments.yml>
-- <https://github.com/BMCV/mobi-fs5-python-assignments/blob/current/.github/workflows/build_assignments.yml>
-- <https://github.com/BMCV/mobi-fs3-python-lecture/blob/current/.github/workflows/build_slides.yml>
-
----
-
 ## Installation
 
 ### Create the `build.yml` workflow
@@ -70,7 +63,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}    
+    if: github.event.workflow_run.conclusion == 'success'
     steps:
 
       - uses: kostrykin/build-latex-document-action@v2.2.0
@@ -84,3 +77,10 @@ git reset --hard
 git commit --allow-empty -m "Create target branch"
 git push origin pdf
 ```
+
+## Examples
+
+For examples see:
+- <https://github.com/BMCV/mobi-fs3-python-assignments/blob/current/.github/workflows/build_assignments.yml>
+- <https://github.com/BMCV/mobi-fs5-python-assignments/blob/current/.github/workflows/build_assignments.yml>
+- <https://github.com/BMCV/mobi-fs3-python-lecture/blob/current/.github/workflows/build_slides.yml>
