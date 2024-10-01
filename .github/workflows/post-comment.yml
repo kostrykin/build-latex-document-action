@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  test_example:
+  post_pr_comment:
     runs-on: ubuntu-latest
     permissions: write-all
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
