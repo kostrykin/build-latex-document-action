@@ -34,8 +34,8 @@ jobs:
         with:
           script: |
             github.rest.issues.createComment({
-              issue_number: fromJson(env.comment_json).issue_number,
+              issue_number: ${{ fromJSON(env.comment_json).issue_number }},
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: fromJson(env.comment_json).body
+              body: ${{ fromJSON(env.comment_json).body }}
             })
