@@ -46,8 +46,8 @@ runs:
       shell: bash
       run: |
         echo "{
-          "issue_number": $ISSUE_NUMBER,
-          "body": "Document for $HEAD_SHA built successfully: $URL"
+          \"issue_number\": $ISSUE_NUMBER,
+          \"body\": \"Document for $HEAD_SHA built successfully: $URL\"
         }" >> comment.json
       env:
         ISSUE_NUMBER: ${{ github.event.number }}
