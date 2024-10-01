@@ -15,6 +15,9 @@ jobs:
     
     steps:
 
+      - name: Initialize
+        uses: actions/checkout@v4
+
       - uses: ./
         with:
           github-token: ${{ github.token }}
