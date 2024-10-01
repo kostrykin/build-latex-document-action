@@ -19,7 +19,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request' || github.ref_name == 'master' || contains(github.event.head_commit.message, '[deploy]' )
-    permissions: write-all
+    permissions:
+      contents: write
     
     steps:
 
