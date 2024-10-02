@@ -27,6 +27,10 @@ inputs:
     required: 'true'
     default: pdf
 
+  docker_image:
+    description: 'The docker image to be used (only for the `pull_requrst` and `push` triggers).'
+    required: 'false'
+
 runs:
 
   using: "composite"
@@ -43,6 +47,7 @@ runs:
         root_file: ${{ inputs.sources }}
         working_directory: ${{ inputs.working_directory }}
         latexmk_use_xelatex: ${{ inputs.latexmk_use_xelatex }}
+        docker_image: ${{ inputs.docker_image }}
 
     - name: Upload LaTeX document
       if: ${{ github.event_name == 'pull_request' || github.event_name == 'push' }}
