@@ -93,10 +93,10 @@ runs:
 
     - name: Build index of the target branch
       if: github.event_name == 'push'
-      shell: bash
-      run: |
-        cd target
-        python "${{ github.action_path }}/build_index.py"
+      uses: kostrykin/build-html-index-action@v0.1
+      with:
+        working-directory: target
+        pattern: '**/*.pdf'
 
     - name: Commit and push the target branch
       if: github.event_name == 'push'
