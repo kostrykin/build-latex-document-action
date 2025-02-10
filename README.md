@@ -69,7 +69,7 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
 
-      - uses: kostrykin/build-latex-document-action@v2.2.0
+      - uses: kostrykin/post-gh-comment-from-artifact@master
 ```
 
 ### Create a target branch as an orphan branch
