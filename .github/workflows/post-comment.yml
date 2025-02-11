@@ -16,4 +16,4 @@ jobs:
     
     steps:
 
-      - uses: kostrykin/post-gh-comment-from-artifact@v1.0.0
+      - uses: kostrykin/post-gh-comment-from-artifact-action@v1.0.0
